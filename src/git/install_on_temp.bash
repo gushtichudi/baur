@@ -61,7 +61,7 @@ get_Package() {
 }
 
 delete_package() {
-  if [ -z (ls -A $TMPDIR) ]; then
+  if [ -z $(ls -A $TMPDIR) ]; then
     die "No packages are installed. If you think this is a mistake then please report so."
   fi 
 
