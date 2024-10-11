@@ -78,7 +78,7 @@ delete_package() {
   read PKGNAME
 
   print_info "\nRemoving package $PKGNAME..."
-  pacman -R $PKGNAME
+  sudo pacman -R $PKGNAME
 
   if [ $? != 0 ]; then
     die "There were errors seen during the deletion of packages. Try again"
