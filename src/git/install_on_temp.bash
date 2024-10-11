@@ -2,29 +2,6 @@
 
 source /usr/include/baur/colors.bash
 
-# Steps: [assuming we're talking about AUR on #2]
-# 
-#   1.  First, we check for an existing temp folder file.
-#       If there's none, we create one and we use that
-#       directory for our future AUR shenanigans
-#
-#   2.  If the source of the package is a compiled
-#       language, we will try to find either of these
-#       things:
-#         a)  we will check if there's a build script
-#             or not. if it's a Makefile, using
-#             Python, we will lex through the file
-#             contents and check if there any
-#             source files of a compiled language
-#             (.c, .cpp, .cc, etc.) are present.
-#             if not, then we just run the Makefile
-#             present.
-#             
-#         b)  if the source is intepreted, we will
-#             just package the contents onto an
-#             Arch Linux package.
-#
-#       Let's go.
 
 TMPDIR=~/.local/share/baur/cache
 TMPEXT="Do not know"
