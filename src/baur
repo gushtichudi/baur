@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+source /usr/include/baur/colors.bash
+source /usr/include/baur/git/install_on_temp.bash
+
+print_warning "This helper is COMPLETLY EXPERIMENTAL. I AM NOT RESPONSIBLE FOR ANY ISSUES"
+print_warning "PLEASE USE THIS WITH CAUTION\n"
+
+# For now, this only supports "-S" and "-R"
+parse_args() {
+  case $1 in
+    "-S")
+      if [ -z $2 ]; then
+        die "Please specify the link for the AUR package"
+      else
+        get_Package $2
+        exit 0
+      fi
+    ;; 
+    "-R")
+      die "Not implemented yet"
+    ;;
+    *)
+      print_info "Usage: baur -[S, R] <http link of aur>"
+      die "Invalid arguments."
+    ;;
+  esac
+}
+
+main() {
+  parse_args $1 $2
+}
+
+main $1 $2
