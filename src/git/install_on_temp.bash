@@ -59,3 +59,28 @@ get_Package() {
 
   makepkg -si
 }
+
+delete_package() {
+  if [ -z (ls -A $TMPDIR) ]; then
+    die "No packages are installed. If you think this is a mistake then please report so."
+  fi 
+
+  print_info "There are packages installed which this helper has note of."
+  ls $TMPDIR
+
+  print_info "\nThe goal is to specify the name of the package you want to uninstall."
+  print_info "It does not have to be the exact same input as of the listed packages."
+  print_warning "Keep in mind that the installed packages list are stored on a temporary cache directory."
+  print_warning "This means, if you were to clean off the cache, the list would also be gone to."
+  print_warning "As of now, there is no easy way to display the list of installed AUR packages. Not even in yay or paru.\n\n"
+
+  print_info "What would you like to delete?"
+  read PKGNAME
+
+  print_info "\nRemoving package $PKGNAME..."
+  pacman -R $PKGNAME
+
+  if [ $? != 0 ]; then
+    die "There were errors seen during the deletion of packages. Try again"
+  fi
+}

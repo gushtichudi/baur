@@ -18,7 +18,7 @@ parse_args() {
       fi
     ;; 
     "-R")
-      die "Not implemented yet"
+      delete_package
     ;;
     *)
       print_info "Usage: baur -[S, R] <http link of aur>"
