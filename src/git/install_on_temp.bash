@@ -52,12 +52,26 @@ get_Package() {
     die "Unexpected error occured. Try again."
   else
     print_success "Everything happened with much success."
+    # make a .baur_history file on home
+    python /usr/include/baur/git/write_to_history.py "new plis" ~/.baur_history.toml 
   fi
 
   print_info "Installing package in $AURDIR"
   cd $AURDIR.d
 
   makepkg -si
+
+  if [ $? != 0 ]; then
+    die "Package was not installed."
+  else
+    print_info "Writting to history"
+    python /usr/include/baur/git/write_to_history.py ~/.baur_history.toml $AURDIR $AURDIR.d
+    if [ $? != 0 ]; then
+      die "Couldn't write to history"
+    else 
+      print_success "Successfully wrote to history"
+    fi 
+  fi
 }
 
 delete_package() {
@@ -65,20 +79,7 @@ delete_package() {
     die "No packages are installed. If you think this is a mistake then please report so."
   fi 
 
-  print_info "There are packages installed which this helper has note of."
-  ls $TMPDIR
-
-  print_info "\nThe goal is to specify the name of the package you want to uninstall."
-  print_info "It does not have to be the exact same input as of the listed packages."
-  print_warning "Keep in mind that the installed packages list are stored on a temporary cache directory."
-  print_warning "This means, if you were to clean off the cache, the list would also be gone to."
-  print_warning "As of now, there is no easy way to display the list of installed AUR packages. Not even in yay or paru.\n\n"
-
-  print_info "What would you like to delete?"
-  read PKGNAME
-
-  print_info "\nRemoving package $PKGNAME..."
-  sudo pacman -R $PKGNAME
+  die "Not implemented yet... For now, delete using sudo pacman -R $1"
 
   if [ $? != 0 ]; then
     die "There were errors seen during the deletion of packages. Try again"
